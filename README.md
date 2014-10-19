@@ -1,5 +1,5 @@
-Telegram Messaging App first Trivia Bot!
-This is customized for personal use, but can be easily edited to fit any Telegram channel or Telegram private messaging.
+<b>Telegram Messaging App first Trivia Bot!
+This is customized for personal use, but can be easily edited to fit any Telegram channel or Telegram private messaging.</b>
 
 In general, Application.java is where most of the customization is needed.
 
@@ -11,6 +11,6 @@ In the workloop function - sendMessageChat has a number that it sends messages t
 
 loadTrivia - you can add custom names to users participating in the trivia with: idsToNames.put(). You need to find out the user's id in telegram and add that.
 
-For any questions, you are welcome to email me on yarneo@gmail.com
+<b>For any questions, you are welcome to email me on</b> yarneo@gmail.com
 
-Thanks, and happy triviaing!
+<b>Thanks, and happy triviaing!</b>
