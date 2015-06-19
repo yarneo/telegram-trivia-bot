@@ -11,6 +11,6 @@ In the workloop function - sendMessageChat has a number that it sends messages t
 
 loadTrivia - you can add custom names to users participating in the trivia with: idsToNames.put(). You need to find out the user's id in telegram and add that.
 
-<b>For any questions, you are welcome to email me on</b> yarneo@gmail.com
+<b>Been getting a lot of emails and sorry I can't answer all of you, if you have any issues please submit an issue on github, that way I can help you better :)</b>
 
 <b>Thanks, and happy triviaing!</b>
