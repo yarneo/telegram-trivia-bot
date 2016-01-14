@@ -4,11 +4,14 @@ This is customized for personal use, but can be easily edited to fit any Telegra
 In general, Application.java is where most of the customization is needed.
 
 To initially configure the app, you need to set up two things:
+
 public static String apiID = "";
+
 public static int chatRoomID = -1;
 
-The apiID you can get by signing up an app on my.telegram.org
-The chatRoomID is the chat ID you will send the trivia bot to. You need to find out the group chat id where you want to add the trivia, and change to that accordingly.
+The <b>apiID</b> you can get by signing up an app on my.telegram.org
+
+The <b>chatRoomID</b> is the chat ID you will send the trivia bot to. You need to find out the group chat id where you want to add the trivia, and change to that accordingly.
 
 onIncomingMessageChat - is where you can customize the incoming messages in the chat.
 
