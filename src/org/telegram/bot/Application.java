@@ -67,7 +67,10 @@ public class Application {
 	private static long currentConsecutiveTimeouts = 0;
 	private static Timer timer = new Timer();
 	private static HashMap<Integer, String> idsToNames = new HashMap<Integer, String>();
-
+	
+	public static String apiID = "";
+	public static int chatRoomID = -1;
+	
 	public static void main(String[] args) throws IOException {
 		disableLogging();
 		createApi();
@@ -95,13 +98,9 @@ public class Application {
 		} catch (FileNotFoundException ex) {
 			System.out.println("questions file not found");
 		}
-
-		idsToNames.put(11657727, "Mar_Tzipan");
-		idsToNames.put(9103759, "Bob");
-		idsToNames.put(8459543, "Merk");
-		idsToNames.put(9508544, "Snake");
-		idsToNames.put(7639690, "Yarr");
-		idsToNames.put(8722587, "Rikel");
+		
+		//Here you can give personal names to the users participating
+		idsToNames.put(12345, "ExamplePlayer1");
 
 		File file = new File("scoresFile");
 		FileInputStream f;
@@ -110,7 +109,7 @@ public class Application {
 				file.createNewFile();
 			} else {
 				f = new FileInputStream(file);
-				if(f.available() > 0) {
+				if (f.available() > 0) {
 					ObjectInputStream s = new ObjectInputStream(f);
 					scores = (HashMap<String, Integer>) s.readObject();
 					s.close();
@@ -233,12 +232,14 @@ public class Application {
 		if (message.startsWith("bot") || message.startsWith("Bot")) {
 			processCommand(message.trim().substring(3).trim(),
 					getChatPeer(chatId), userId);
-		} else if (message.equals("yar") || message.equals("Yar") || message.startsWith("yar ") || message.endsWith(" yar")
+		} else if (message.equals("yar") || message.equals("Yar")
+				|| message.startsWith("yar ") || message.endsWith(" yar")
 				|| message.startsWith("Yar ") || message.endsWith(" Yar")
 				|| message.contains(" yar ") || message.contains(" Yar ")) {
 			sendMessage(getChatPeer(chatId),
 					"Do not say mr mr geniuosity's name in vein.");
-		} else if (message.equals("tara") || message.equals("Tara") || message.startsWith("tara ") || message.endsWith(" tara")
+		} else if (message.equals("tara") || message.equals("Tara")
+				|| message.startsWith("tara ") || message.endsWith(" tara")
 				|| message.startsWith("Tara ") || message.endsWith(" Tara")
 				|| message.contains(" tara ") || message.contains(" tara ")) {
 			sendMessage(getChatPeer(chatId), "Tara is queen of the universe.");
@@ -491,21 +492,21 @@ public class Application {
 		// }
 	}
 
-	private static String getName(Entry<String, Integer> score) {
-		String name = "";
-		if (Integer.parseInt(score.getKey()) == 11657727) {
-			name = "Mar_Tzipan";
-		} else if (Integer.parseInt(score.getKey()) == 9103759) {
-			name = "Bob";
-		} else if (Integer.parseInt(score.getKey()) == 8459543) {
-			name = "Merk";
-		} else if (Integer.parseInt(score.getKey()) == 9508544) {
-			name = "Snake";
-		} else {
-			name = "Yarr";
-		}
-		return name;
-	}
+//	private static String getName(Entry<String, Integer> score) {
+//		String name = "";
+//		if (Integer.parseInt(score.getKey()) == 11657727) {
+//			name = "Mar_Tzipan";
+//		} else if (Integer.parseInt(score.getKey()) == 9103759) {
+//			name = "Bob";
+//		} else if (Integer.parseInt(score.getKey()) == 8459543) {
+//			name = "Merk";
+//		} else if (Integer.parseInt(score.getKey()) == 9508544) {
+//			name = "Snake";
+//		} else {
+//			name = "Yarr";
+//		}
+//		return name;
+//	}
 
 	private static void sendRandomQuestion(final PeerState peerState) {
 		try {
@@ -588,12 +589,12 @@ public class Application {
 	}
 
 	private static void workLoop() {
-		sendMessageChat(1256792, "Hello World !");
-		sendMessageChat(1256792,
+		sendMessageChat(chatRoomID, "Hello World !");
+		sendMessageChat(chatRoomID,
 				"My name is CrappyBot, and i am apparently a trivia bot !");
-		sendMessageChat(1256792,
+		sendMessageChat(chatRoomID,
 				"Type 'bot help' for a list of available commands");
-		sendMessageChat(1256792, "There are " + questions.size()
+		sendMessageChat(chatRoomID, "There are " + questions.size()
 				+ " questions on CrappyBot");
 
 		while (true) {
@@ -714,7 +715,7 @@ public class Application {
 		TLSentCode sentCode;
 		try {
 			sentCode = api.doRpcCallNonAuth(new TLRequestAuthSendCode(phone, 0,
-					5, "1c5c96d5edd401b1ed40db3fb5633e2d", "en"));
+					5, apiID, "en"));
 		} catch (RpcException e) {
 			if (e.getErrorCode() == 303) {
 				int destDC;
@@ -732,7 +733,7 @@ public class Application {
 				}
 				api.switchToDc(destDC);
 				sentCode = api.doRpcCallNonAuth(new TLRequestAuthSendCode(
-						phone, 0, 5, "1c5c96d5edd401b1ed40db3fb5633e2d", "en"));
+						phone, 0, 5, apiID, "en"));
 			} else {
 				throw e;
 			}
